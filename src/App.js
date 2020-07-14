@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import './App.css'
 import 'antd/dist/antd.css'
 import routes from './router'
-
+import FrontendAuth from './router/frontendAuth'
 
 class App extends React.Component {
     render () {
@@ -20,8 +20,8 @@ class App extends React.Component {
                       </header>
                 </div>
                 <Switch>
-                {/* <FrontendAuth config = {routes} ></FrontendAuth> */}
-                {
+                <FrontendAuth config = {routes} ></FrontendAuth>
+                {/* {
                     routes.map((route, key)=>{
                         if(route.exact){
                             return <Route  key={key}  exact path={route.path}                     
@@ -38,7 +38,7 @@ class App extends React.Component {
 
                         }
                     })
-                }        
+                }         */}
                 </Switch>
             </Router>
         )

@@ -5,7 +5,6 @@ const service = axios.create({
     timeout:  5000
 })
 service.interceptors.request.use((config) => {
-    console.log(config)
     const token = window.localStorage.token
     if (token) config.headers['token'] = token
     return config

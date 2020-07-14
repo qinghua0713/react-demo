@@ -8,24 +8,18 @@ export default class FrontendAuth extends React.Component {
         // 如果该路由不用进行权限校验，登录状态下登陆页除外
         // 因为登陆后，无法跳转到登陆页
         // 这部分代码，是为了在非登陆状态下，访问不需要权限校验的路由
-        var  targetRouterConfig = config.find((value => value.path === pathname));
-        // function fliterArr(arr){
-        //     for (let i=0;i<arr.length;i++){
-        //         if(arr[i].path === pathname){
-        //             targetRouterConfig = arr[i];
-        //             break;
-        //         }   else {
-        //             if (arr[i].routes?.length){
-        //                 fliterArr(arr[i].routes)
-        //                 break
-        //             }
-        //         }
-        //     }
-        // }
-        // fliterArr(config);
+        var  targetRouterConfig = config.find((value => {
+            if ( value.path === pathname) {
+                return  value.path === pathname
+            } else {
+                return  value.routes ? value.routes.find((value) => value.path === pathname) : undefined
+            }
+        } ))
         if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
             const { component } = targetRouterConfig
-            return <Route exact path = { pathname } component= { component } 
+            return <Route  path = { pathname } component = {component} render={props => (
+                <targetRouterConfig.component {...props} routes={targetRouterConfig.routes}/>
+                )}
              />
         }
         if (isLogin) {
@@ -35,8 +29,11 @@ export default class FrontendAuth extends React.Component {
             } else {
                 // 如果路由合法，就跳转到相应的路由
                 if (targetRouterConfig) {
-                    return <Route path = { pathname } component = { targetRouterConfig.component } />
+                    return <Route path = { pathname } render={props => (
+                        <targetRouterConfig.component {...props} routes={targetRouterConfig.routes}/>
+                        )} />
                 } else {
+                    console.log('111')
                     return <Redirect to ='/404' />
                 }
             }
@@ -45,6 +42,7 @@ export default class FrontendAuth extends React.Component {
             if (targetRouterConfig && targetRouterConfig.auth) {
                 return <Redirect to = '/login' />
             } else {
+                console.log('222')
                 // 非登陆状态下，路由不合法时，重定向至 404
                 return <Redirect to ='/404' />
             }

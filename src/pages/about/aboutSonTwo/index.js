@@ -1,5 +1,4 @@
 import React from "react"
-import { Button } from 'antd';
 class aboutSonTwo extends React.Component{
     constructor (props) {
         super (props)
@@ -11,17 +10,16 @@ class aboutSonTwo extends React.Component{
     }
     
     change = () => {
-        
-        this.props.callback(this.state.msg, this.state.name, this.state.age)
+       // this.props.callback(this.state.msg, this.state.name, this.state.age)
     }
     render () {
         return (
             <div>
+                这是第二个er子页面
                 <div>{this.props.name}</div>
                 <div>{this.props.age}</div>
                 <div>{this.props.msg}</div>
                 <button onClick={this.change}>点击</button>
-                {/* <Button onClick={this.change}>点击</Button> */}
             </div>
         )
     }

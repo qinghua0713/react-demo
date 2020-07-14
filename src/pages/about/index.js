@@ -19,20 +19,21 @@ class About extends React.Component {
       const res = await List ()
     }
     componentDidMount = () => [
-        this.request()   
+        // this.request()   
     ]
     render() {
+        console.log(this.props,'props')
         return (
             <div className='user'>
                <div className='content'>
                     <div className='left'>
-                        <Link to='/about/'>第一个儿子</Link>
+                        <Link to='/about/aboutSon'>第一个儿子</Link>
                         <br/><br/>
                         <Link to='/about/aboutSonTwo'>第二个儿子</Link>
                     </div>
 
                     <div className='right'>
-                        <AboutSonTwo  callback={this.callback} name={this.state.name} age={this.state.age} msg={this.state.msg}></AboutSonTwo>
+                        {/* <AboutSonTwo  callback={this.callback} name={this.state.name} age={this.state.age} msg={this.state.msg}></AboutSonTwo> */}
                         {
                             this.props.routes.map((item, index)=> {
                                 return <Route key= { index } exact path = { item.path  } component = { item.component } />

@@ -18,7 +18,7 @@ const routers = [
         auth: true,
         routes: [
             {
-                path: '/about/',
+                path: '/about/aboutSon',
                 component: AboutSon,
                 auth: true
             },
