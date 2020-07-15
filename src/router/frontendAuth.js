@@ -33,7 +33,6 @@ export default class FrontendAuth extends React.Component {
                         <targetRouterConfig.component {...props} routes={targetRouterConfig.routes}/>
                         )} />
                 } else {
-                    console.log('111')
                     return <Redirect to ='/404' />
                 }
             }
@@ -42,7 +41,6 @@ export default class FrontendAuth extends React.Component {
             if (targetRouterConfig && targetRouterConfig.auth) {
                 return <Redirect to = '/login' />
             } else {
-                console.log('222')
                 // 非登陆状态下，路由不合法时，重定向至 404
                 return <Redirect to ='/404' />
             }

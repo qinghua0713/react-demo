@@ -22,7 +22,6 @@ class About extends React.Component {
         // this.request()   
     ]
     render() {
-        console.log(this.props,'props')
         return (
             <div className='user'>
                <div className='content'>

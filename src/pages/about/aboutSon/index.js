@@ -1,11 +1,45 @@
 import React from "react"
-
-const AboutSon = () => {
-    return (
-        <div>
-            欢迎，这里是About第一个儿子页
-        </div>
-    )
+import {createStore} from 'redux'
+import { Button } from 'antd'
+const reducer = (state = { counter: 0 }, action = {}) => {
+    const { type } = action
+    const { counter } = state
+    switch (type) {
+        case 'INCREASE':
+            return  { counter: counter + 1 }
+        case 'DECREASE':
+            return  { counter: counter - 1 }
+        default:
+            return { counter:  0 }
+    }
 }
-
-export default AboutSon
+const store = createStore(reducer)
+export default class AboutSon extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            counter: 0
+        }
+        this.unsubscribe = null
+    }
+    componentDidMount () {
+        this.unsubscribe = store.subscribe(() => {
+			this.setState({
+				counter:  store.getState().counter
+			})
+        })
+	}
+	componentWillUnmount() {
+		this.unsubscribe()
+	}
+	render () {
+		return (
+			<div>
+				<h1>{this.state.counter}</h1>
+				<Button  onClick={() => store.dispatch({type: 'INCREASE'})}>+1</Button>
+				<Button  onClick={() => store.dispatch({type: 'DECREASE'})}>-1</Button>
+				<Button  onClick={() => store.dispatch({type: 'RESET'})}>0</Button>
+			</div>
+		)
+	}
+}
